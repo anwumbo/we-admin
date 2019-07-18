@@ -1,0 +1,25 @@
+{
+  "printWidth": 80,
+  "tabWidth": 2,
+  "useTabs": false,
+  "semi": true,
+  "singleQuote": true,
+  "trailingComma": "all",
+  "arrowParens": "always",
+  "overrides": [
+    {
+      "files": [
+        "constants.js",
+        "permissions.js",
+        "messages.js",
+        "app/containers/App/index.js",
+        "app/config/routes/index.js",
+        "app/config/environment/*",
+        "*Router.js"
+      ],
+      "options": {
+        "printWidth": 150
+      }
+    }
+  ]
+}
