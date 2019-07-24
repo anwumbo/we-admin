@@ -32,7 +32,11 @@ export default function App() {
         <AppContentContainer>
           <Switch>
             <Route exact path={routes.index} component={HomePage} />
-            <Route exact path={routes.admin.users.list} component={UserManagement} />
+            <Route
+              exact
+              path={routes.admin.users.list}
+              component={UserManagement}
+            />
             <Route component={NotFoundPage} />
           </Switch>
         </AppContentContainer>

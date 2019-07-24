@@ -2,7 +2,8 @@ import formatMessage from 'containers/LanguageProvider/formatMessage';
 import globalMessages from 'containers/App/messages';
 
 export const GET_ASSET_CATEGORIES = 'app/UserManagement/GET_ASSET_CATEGORIES';
-export const ADD_EDIT_ASSET_CATEGORIES = 'app/UserManagement/ADD_EDIT_ASSET_CATEGORIES';
+export const ADD_EDIT_ASSET_CATEGORIES =
+  'app/UserManagement/ADD_EDIT_ASSET_CATEGORIES';
 
 export const FITTINGS_FIXTURES = 'fitting_fixture';
 export const ASSET = 'asset';
@@ -27,5 +28,8 @@ export const fields = {
 
 export const RELATED_PAGE_OPTIONS = [
   { value: ASSET, label: formatMessage(globalMessages.buildingAsset) },
-  { value: FITTINGS_FIXTURES, label: formatMessage(globalMessages.fittingsAndFixtures) },
+  {
+    value: FITTINGS_FIXTURES,
+    label: formatMessage(globalMessages.fittingsAndFixtures),
+  },
 ];
