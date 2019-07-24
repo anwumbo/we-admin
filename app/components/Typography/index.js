@@ -14,12 +14,10 @@
  *
  * @prop {bool} bold: make text bold
  * @prop {bool} uppercase: make text uppercase
- * @prop {bool} textCenter: make text center
+ * @prop {bool} textCenter, center: make text center
  * @prop {bool} noMargin: remove default margin top 20px and margin bottom 20px
  * @prop {bool} noMarginTop:
  */
-
-/* eslint-disable indent */
 
 import React from 'react';
 import styled, { css } from 'styled-components';
@@ -36,6 +34,7 @@ const Wrapper = styled.div`
   position: relative;
   font-weight: 600;
   word-break: break-word;
+  white-space: pre-line;
 
   ${(props) =>
     props.margin &&
@@ -50,7 +49,7 @@ const Wrapper = styled.div`
     `};
 
   ${(props) =>
-    props.textCenter &&
+    (props.textCenter || props.center) &&
     css`
       justify-content: center;
       text-align: center;
@@ -73,20 +72,11 @@ const Wrapper = styled.div`
       margin-bottom: 24px;
     `};
 
-  ${(props) => {
-    const color = props.color || colorConfig[props.theme] || '#212121';
-
-    return (
-      (props.theme || props.color) &&
-      css`
-        color: ${color};
-
-        a {
-          color: ${color} !important;
-        }
-      `
-    );
-  }};
+  ${(props) =>
+    (props.theme || props.color) &&
+    css`
+      color: ${props.color || colorConfig[props.theme]};
+    `};
 
   ${(props) =>
     props.noMargin &&
@@ -201,7 +191,7 @@ Typography.propTypes = {
   label: PropTypes.any,
   children: PropTypes.any,
   bottomLine: PropTypes.bool,
-  bottomLineFlow: PropTypes.any,
+  bottomLineFlow: PropTypes.bool,
   type: PropTypes.string,
   theme: PropTypes.string,
   bold: PropTypes.bool,

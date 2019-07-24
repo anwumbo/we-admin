@@ -8,15 +8,16 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Icon } from 'antd';
 
 import Label from 'components/FormElements/Label';
 import ErrorMessages from 'components/FormElements/ErrorMessages';
 import FormGroup from 'components/FormElements/FormGroup';
-import formatMessage from 'containers/LanguageProvider/formatMessage';
-import globalMessages from 'containers/App/messages';
 
-import StyledInput from './StyledComponents';
+import {
+  StyledInputNumber,
+  SuffixWrapper,
+  PrefixWrapper,
+} from './StyledComponents';
 
 const Input = ({
   label,
@@ -25,20 +26,23 @@ const Input = ({
   infoTooltip,
   isDisabled,
   search,
-  isHiddenError,
+  suffix,
+  prefix,
   ...rest
 }) => (
   <FormGroup>
     <Label label={label} isRequired={isRequired} infoTooltip={infoTooltip} />
-    <StyledInput
-      error={!isHiddenError && !!error}
-      type="text"
-      disabled={isDisabled}
-      placeholder={formatMessage(globalMessages.typeHere)}
-      suffix={search ? <Icon type="search" theme="outlined" /> : undefined}
-      {...rest}
-    />
-    {!isHiddenError && <ErrorMessages error={error} />}
+    <div style={{ position: 'relative' }}>
+      {prefix && <PrefixWrapper>{prefix}</PrefixWrapper>}
+      <StyledInputNumber
+        prefix={prefix}
+        error={!!error}
+        disabled={isDisabled}
+        {...rest}
+      />
+      {suffix && <SuffixWrapper>{suffix}</SuffixWrapper>}
+    </div>
+    <ErrorMessages error={error} />
   </FormGroup>
 );
 
@@ -50,7 +54,8 @@ Input.propTypes = {
   isDisabled: PropTypes.bool,
   search: PropTypes.bool,
   value: PropTypes.any,
-  isHiddenError: PropTypes.bool,
+  suffix: PropTypes.any,
+  prefix: PropTypes.any,
 };
 
 export default Input;

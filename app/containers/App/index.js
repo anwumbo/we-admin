@@ -15,18 +15,27 @@ import Authentication from 'utils/auth/Authentication';
 import { routes } from 'config/routes';
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
+import TopNavigation from 'containers/Navigation/MenuTop/Loadable';
+import SideNavigation from 'containers/Navigation/SideNav/Loadable';
+import UserManagement from 'containers/UserManagement/Loadable';
 import AuthPages from 'containers/AuthPages/Loadable';
 import GlobalStyle from '../../global-styles';
+import { AppContentContainer } from './StyledComponents';
 
 export default function App() {
   return (
     <div>
       <Route exact path={routes.login} component={AuthPages} />
       <Authentication>
-        <Switch>
-          <Route exact path={routes.index} component={HomePage} />
-          <Route component={NotFoundPage} />
-        </Switch>
+        <TopNavigation />
+        <SideNavigation />
+        <AppContentContainer>
+          <Switch>
+            <Route exact path={routes.index} component={HomePage} />
+            <Route exact path={routes.admin.users.list} component={UserManagement} />
+            <Route component={NotFoundPage} />
+          </Switch>
+        </AppContentContainer>
         <GlobalStyle />
       </Authentication>
     </div>

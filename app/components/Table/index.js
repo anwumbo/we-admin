@@ -1,136 +1,177 @@
 /**
  *
- * AntTable component
+ * Table component
  *
- * Using Table component of Ant Design
- * Visit https://ant.design/components/table for documentation
+ * Using react-table@6.8.6
+ * Visit https://react-table.js.org/#/story/readme for documentation
  *
  * Table component already includes Loading component and Pagination component
  *
  * @prop {array} data:
  * @prop {array} columns:
  * @prop {bool} loading:
- * @prop {bool} wrapCell: make table cell wrap in 1 line or many
  * @prop {int} currentPage:
  * @prop {int} totalPages:
  * @prop {func} onChangePage:
  * @prop {string} margin:
  * @prop {object} style:
- *
+ * @prop {object} tableStyle:
  */
 
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { Table } from 'antd';
+import ReactTable from 'react-table';
 import styled, { css } from 'styled-components';
 
+import Loading from 'components/Loading';
+import { colorConfig } from 'config/style';
+import NoDataBanner from 'components/NoData/Banner';
 import Pagination from 'components/Table/Pagination';
-import './style.less';
 
-const AntTable = ({
-  dataSource = [],
+const Table = ({
+  loading = false,
+  data = [],
   columns = [],
-  pagination,
+  currentPage = 1,
+  totalPages = 1,
   onChangePage,
-  onChangeItemsPerPage,
   margin,
+  style,
   tableStyle,
-  scroll,
+  noBorderBottom = false,
   wrapContent = true,
   ...rest
-}) => {
-  const [itemsPerPage, setItemsPerPage] = useState(10);
-  const [currentPage, setCurrentPage] = useState(1);
-
-  if (pagination.currentPage !== currentPage) {
-    setCurrentPage(pagination.currentPage);
-  }
-
-  if (pagination.itemsPerPage !== itemsPerPage) {
-    setItemsPerPage(pagination.itemsPerPage);
-  }
-
-  const handleOnChangeItemsPerPage = (page) => {
-    if (onChangeItemsPerPage) onChangeItemsPerPage(page);
-    setItemsPerPage(page);
-  };
-
-  const handleOnChangePage = (page) => {
-    if (onChangePage) onChangePage(page);
-    setCurrentPage(page);
-  };
-
-  const renderPagination = () => (
-    <Pagination
-      currentPage={currentPage || 1}
-      totalPages={pagination.totalPages || 1}
-      onChangePage={handleOnChangePage}
-      onChangeItemsPerPage={handleOnChangeItemsPerPage}
-      itemsPerPage={itemsPerPage}
-      loading={rest.loading}
-      totalItems={pagination.totalItems}
+}) => (
+  <TableContainer
+    style={{ ...style, margin }}
+    noData={data.length === 0}
+    noBorderBottom={noBorderBottom}
+  >
+    <RCTable
+      data={data}
+      columns={columns}
+      sortable={false}
+      noDataText=""
+      resizable={false}
+      showPagination={false}
+      minRows={loading ? data.length || 10 : 0}
+      className="-striped -highlight"
+      style={tableStyle}
+      manual
+      wrapContent={wrapContent}
+      {...rest}
     />
-  );
 
-  return (
-    <TableContainer style={{ margin }}>
-      {renderPagination()}
+    {loading && <Loading />}
 
-      <StyledAntTable
-        columns={columns}
-        dataSource={dataSource}
-        sortable
-        noDataText=""
-        resizable={false}
-        showPagination={false}
-        pagination={false}
-        expandRowByClick
-        scroll={{ x: true, ...scroll }}
-        style={tableStyle}
-        wrapContent={wrapContent}
-        rowKey="id"
-        {...rest}
+    {!loading && data.length === 0 && <NoDataBanner />}
+
+    {totalPages > 1 && (
+      <Pagination
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onChangePage={onChangePage}
+        loading={loading}
       />
+    )}
+  </TableContainer>
+);
 
-      {renderPagination()}
-    </TableContainer>
-  );
-};
-
-AntTable.propTypes = {
+Table.propTypes = {
   loading: PropTypes.bool,
   wrapContent: PropTypes.bool,
-  dataSource: PropTypes.array,
-  columns: PropTypes.array,
+  data: PropTypes.array,
+  columns: PropTypes.array.isRequired,
+  currentPage: PropTypes.number.isRequired,
+  totalPages: PropTypes.number.isRequired,
   onChangePage: PropTypes.func,
-  onChangeItemsPerPage: PropTypes.func,
   margin: PropTypes.string,
   style: PropTypes.object,
-  pagination: PropTypes.object,
   tableStyle: PropTypes.object,
-  scroll: PropTypes.object,
-  noDataBanner: PropTypes.object,
+  noBorderBottom: PropTypes.bool,
 };
 
-export default AntTable;
+export default Table;
 
 /**
  * Styled-components
  */
 
-const StyledAntTable = styled(Table)`
-  .ant-table-thead > tr > th {
-    font-weight: 600;
+export const RCTableBaseCSS = css`
+  border: 0;
+
+  .rt-thead {
+    border-top: 1px ${colorConfig.borderInput} solid;
+    border-bottom: 1px ${colorConfig.borderInput} solid;
+    box-shadow: none !important;
   }
+  .rt-th {
+    text-align: left;
+    padding: 20px 7px !important;
+    font-weight: 600;
+    border: 0 !important;
+    white-space: nowrap;
+    width: fit-content;
+  }
+  .rt-tbody .rt-tr {
+    padding: 14px 0 !important;
+    :hover {
+      background-color: ${colorConfig.hover} !important;
+    }
+  }
+  .rt-tbody {
+    border-bottom: 1px ${colorConfig.borderInput} solid;
+  }
+  .rt-tr-group {
+    min-height: 53px;
+    border-bottom: 0 !important;
+
+    &:last-child {
+      border-bottom-width: 1px;
+    }
+  }
+  .rt-td {
+    padding: 0 5px;
+  }
+  .rt-noData {
+    display: none;
+  }
+  .rt-th,
+  .rt-td {
+    &:first-child {
+      padding-left: 30px !important;
+    }
+    &:last-child {
+      padding-right: 30px !important;
+    }
+  }
+  .rt-td:empty:after {
+    content: 'N/A';
+    color: #d5d5d5;
+  }
+`;
+
+const RCTable = styled(ReactTable)`
+  ${RCTableBaseCSS};
 
   ${(props) =>
     !props.wrapContent &&
     css`
-      .ant-table td {
+      .rt-td {
         white-space: pre-wrap;
         overflow-wrap: break-word;
       }
     `};
 `;
 
-const TableContainer = styled.div``;
+const TableContainer = styled.div`
+  position: relative;
+
+  ${(props) =>
+    (props.noData || props.noBorderBottom) &&
+    css`
+      .rt-tbody {
+        border-bottom: none !important;
+      }
+    `};
+`;

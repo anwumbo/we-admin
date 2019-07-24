@@ -12,7 +12,7 @@ import PropTypes from 'prop-types';
 import formatMessage from 'containers/LanguageProvider/formatMessage';
 import globalMessages from 'containers/App/messages';
 
-export const NoDataWrapper = styled.div`
+const Wrapper = styled.div`
   height: 100%;
   width: 100%;
   min-height: 100px;
@@ -21,10 +21,10 @@ export const NoDataWrapper = styled.div`
   justify-content: center;
 `;
 
-export const NoDataBanner = ({ style, label, children }) => (
-  <NoDataWrapper style={style}>
+const NoDataBanner = ({ style, label, children }) => (
+  <Wrapper style={style} className="no-data-banner">
     <span>{children || label}</span>
-  </NoDataWrapper>
+  </Wrapper>
 );
 
 NoDataBanner.propTypes = {

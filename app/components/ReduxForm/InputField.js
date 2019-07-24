@@ -13,6 +13,8 @@ const InputField = ({
   input: { onChange, onFocus, onBlur, value, ...rest },
   meta: { touched, error },
   isDisabled,
+  isHiddenError,
+  onHandleChange,
   ...remainProps
 }) => {
   const onBlurInputField = () => {
@@ -26,9 +28,17 @@ const InputField = ({
     }
   };
 
+  const onInputChange = (e) => {
+    onChange(e);
+
+    if (onHandleChange) {
+      onHandleChange(e);
+    }
+  };
+
   return (
     <Input
-      onChange={onChange}
+      onChange={onInputChange}
       onFocus={onFocus}
       onBlur={onBlurInputField}
       value={value}
@@ -36,6 +46,7 @@ const InputField = ({
       {...rest}
       {...remainProps}
       error={(touched && error) || ''}
+      isHiddenError={isHiddenError}
     />
   );
 };
@@ -45,6 +56,8 @@ InputField.propTypes = {
   meta: PropTypes.object, // redux-form props for Field
   disabled: PropTypes.bool,
   isDisabled: PropTypes.bool,
+  isHiddenError: PropTypes.bool,
+  onHandleChange: PropTypes.func,
   // remainProps: remain props will be passed to Input component
 };
 

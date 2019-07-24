@@ -18,23 +18,15 @@ export const RedText = styled.div`
   font-weight: 400;
 `;
 
-const ErrorMessages = ({ error, ...rest }) => {
-  const renderError = (errorString) =>
-    rest.renderError ? (
-      rest.renderError(errorString)
-    ) : (
-      <RedText key={uuid()} className="error-message" {...rest}>
-        {errorString}
-      </RedText>
-    );
-
-  return Array.isArray(error)
-    ? error.map((item) => renderError(item))
-    : renderError(error);
-};
+const ErrorMessages = ({ error, ...rest }) => (
+  <RedText key={uuid()} className="error-message" {...rest}>
+    {error}
+  </RedText>
+);
 
 ErrorMessages.propTypes = {
   error: PropTypes.any,
+  getErrors: PropTypes.func,
 };
 
 export default ErrorMessages;

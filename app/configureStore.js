@@ -94,6 +94,7 @@ export default function configureStore(initialState = {}, history) {
   store.injectedSagas = {}; // Saga registry
   store.runSaga(apiSaga);
   store.runSaga(loginSaga);
+
   // Make reducers hot reloadable, see http://mxs.is/googmo
   /* istanbul ignore next */
   if (module.hot) {

@@ -22,23 +22,51 @@ function getColor(props) {
 
   switch (theme) {
     case 'primary':
-      background = colorConfig.primary;
-      border = colorConfig.primary;
-      text = colorConfig.whiteText;
+    case 'info':
+      background = colorConfig.btn;
+      border = colorConfig.btn;
+      text = '#FFF';
       break;
-
+    case 'close':
+      background = '#FFF';
+      border = colorConfig.info;
+      text = colorConfig.info;
+      break;
+    case 'pink':
+      background = colorConfig.pink;
+      border = colorConfig.pink;
+      text = '#FFF';
+      break;
+    case 'warning':
+      background = colorConfig.warning;
+      border = colorConfig.warning;
+      text = '#FFF';
+      break;
+    case 'danger':
+      background = colorConfig.danger;
+      border = colorConfig.danger;
+      text = '#FFF';
+      break;
+    case 'cancel':
+      background = colorConfig.cancel;
+      border = colorConfig.cancel;
+      text = '#FFF';
+      break;
+    case 'attach':
+      background = colorConfig.bgBody;
+      border = colorConfig.bgBody;
+      text = colorConfig.text; // eslint-disable-line
+      break;
     default:
-      background = colorConfig.darkPrimary;
-      border = colorConfig.darkPrimary;
-      text = colorConfig.whiteText;
+      background = '#FFF';
+      border = colorConfig.borderInput;
+      text = colorConfig.text; // eslint-disable-line
       break;
   }
-
-  if (outline) {
-    text = colorConfig.darkPrimary;
-    background = colorConfig.whiteText;
+  if (outline && theme !== 'close') {
+    text = background === '#FFF' ? '#000' : background;
+    background = '#FFF';
   }
-
   return { background, text, border };
 }
 
@@ -54,12 +82,17 @@ const Button = styled.button`
   letter-spacing: 0.3px;
   text-transform: capitalize;
   padding: 6px 25px;
-  border-radius: 5px;
+  border-radius: 3px;
   border: 1px ${colorConfig.borderInput} solid;
-  min-width: 120px;
 
   :hover {
-    transition: all 0.3s ease-in-out;
+    transition: all, 0.3s ease-in-out;
+    ${(props) =>
+      props.outline &&
+      css`
+        background-color: ${getColor(props).border} !important;
+        color: white;
+      `}
   }
 
   :focus,
@@ -77,7 +110,44 @@ const Button = styled.button`
     `;
   }};
 
-  ${(props) => props.uppercase && 'text-transform: uppercase'};
+
+  ${(props) =>
+    props.small &&
+    css`
+      font-size: 12px;
+      line-height: 12px;
+      padding: 3px 10px;
+      height: 24px !important;
+      min-height: 24px !important;
+      ${props.circle &&
+        css`
+          width: 24px !important;
+          height: 24px !important;
+          font-size: 15px !important;
+          padding: 0 !important;
+          display: inline-flex;
+          justify-content: center;
+        `};
+    `}
+
+  ${(props) =>
+    props.medium &&
+    css`
+      font-size: 14px;
+      line-height: 16px;
+      padding: 8px 16px;
+      height: 32px !important;
+      min-height: 32px !important;
+      ${props.circle &&
+        css`
+          width: 32px !important;
+          height: 2432px !important;
+          font-size: 14px !important;
+          padding: 0 !important;
+          display: inline-flex;
+          justify-content: center;
+        `};
+    `}
 
   ${(props) =>
     props.disabled &&
@@ -90,17 +160,43 @@ const Button = styled.button`
     `}
 
   ${(props) =>
-    props.width &&
+    props.circle &&
     css`
-      width: ${props.width};
-      min-width: ${props.width};
+      border-radius: 50%;
+      padding: 0px;
+      width: 35px;
+      height: 35px;
+      min-height: 35px;
+      font-size: 20px;
+      line-height: 35px;
+    `}
+
+  ${(props) => props.uppercase && 'text-transform: uppercase'};
+
+  ${(props) =>
+    props.linkButton &&
+    css`
+      border: 0;
+
+      :hover {
+        color: ${colorConfig.primary};
+      }
+    `}
+  
+  ${(props) =>
+    props.text &&
+    css`
+      border: none;
+      :hover {
+        color: ${colorConfig.primary};
+      }
     `};
 
   ${(props) =>
-    props.maxWidth &&
+    props.width &&
     css`
-      width: 100%;
+      width: ${props.width};
     `};
-`;
+  `;
 
 export default (props) => <Button type="button" {...props} />;

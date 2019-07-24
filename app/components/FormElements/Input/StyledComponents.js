@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { Input } from 'antd';
+import { Input, InputNumber } from 'antd';
 import styled, { css } from 'styled-components';
 import { colorConfig } from 'config/style';
 
@@ -15,6 +15,8 @@ const inputErrorStyle = css`
 const AntdInput = ({ error, ...rest }) => <Input {...rest} />;
 
 const AntdTextArea = ({ error, ...rest }) => <Input.TextArea {...rest} />;
+
+const AntdInputNumber = ({ error, ...rest }) => <InputNumber {...rest} />;
 
 export const StyledInput = styled(AntdInput)`
   &.ant-input,
@@ -36,6 +38,34 @@ export const StyledInput = styled(AntdInput)`
 
 export const StyledTextArea = styled(AntdTextArea)`
   ${(props) => props.error && inputErrorStyle};
+`;
+
+export const StyledInputNumber = styled(AntdInputNumber)`
+  input {
+    width: 100%;
+  }
+  ${(props) => props.error && inputErrorStyle};
+
+  ${(props) =>
+    props.prefix &&
+    css`
+      .ant-input-number-input {
+        padding: 0 24px;
+      }
+    `}
+`;
+
+export const SuffixWrapper = styled.span`
+  position: absolute;
+  right: 10px;
+  top: 0;
+`;
+
+export const PrefixWrapper = styled.span`
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  z-index: 1;
 `;
 
 export default StyledInput;

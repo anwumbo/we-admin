@@ -19,7 +19,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Select, Creatable } from 'react-select';
-// import Creatable from 'react-select/lib/Creatable';
 
 import formatMessage from 'containers/LanguageProvider/formatMessage';
 import globalMessages from 'containers/App/messages';
@@ -81,7 +80,6 @@ const SelectBox = ({
     },
     classNamePrefix: 'react-select',
   };
-
   return (
     <FormGroup>
       <Label label={label} isRequired={isRequired} infoTooltip={infoTooltip} />

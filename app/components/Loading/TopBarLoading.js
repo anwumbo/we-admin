@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
+// https://github.com/jamiebuilds/react-loadable#creating-a-great-loading-component
 
 import styled from 'styled-components';
 import React from 'react';
-import colorConfig from 'config/style';
 
 export const TopBarLoading = styled.div`
   height: 3px;
@@ -22,7 +22,7 @@ export const TopBarLoading = styled.div`
     left: -200px;
     width: 200px;
     height: 3px;
-    background-color: ${colorConfig.primary};
+    background-color: #05c2d1;
     animation: loading 1s linear infinite;
   }
 
@@ -49,10 +49,12 @@ export const TopBarLoading = styled.div`
   }
 `;
 
-export const BarLoading = ({ error, ...rest }) => {
+export const BarLoading = ({ error, pastDelay, ...rest }) => {
   if (error) {
     window.location.reload();
   }
+
+  if (!pastDelay) return '';
 
   return <TopBarLoading {...rest} />;
 };

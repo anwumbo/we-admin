@@ -61,4 +61,64 @@ export default defineMessages({
     id: 'app.containers.App.passwordAtLeast6Character',
     defaultMessage: 'Password at least 6 characters',
   },
+  dashboard: {
+    id: 'app.containers.App.dashboard',
+    defaultMessage: 'Dashboard',
+  },
+  usersManagement: {
+    id: 'app.containers.App.usersManagement',
+    defaultMessage: ' Users Management',
+  },
+  logs: {
+    id: 'app.containers.App.logs',
+    defaultMessage: 'Logs',
+  },
+  tourGuide: {
+    id: 'app.containers.App.tourGuide',
+    defaultMessage: 'Tour Guide',
+  },
+  buildingsManagement: {
+    id: 'app.containers.App.buildingsManagement',
+    defaultMessage: 'Buildings Management',
+  },
+  weServicesManagement: {
+    id: 'app.containers.App.weServicesManagement',
+    defaultMessage: 'WE Services Management',
+  },
+  fullName: {
+    id: 'app.containers.App.fullName',
+    defaultMessage: 'Full name',
+  },
+  BOD: {
+    id: 'app.containers.App.BOD',
+    defaultMessage: 'BOD',
+  },
+  searchPlaceholder: {
+    id: 'app.containers.App.searchPlaceholder',
+    defaultMessage: 'Search Placeholder',
+  },
+  selectRole: {
+    id: 'app.containers.App.selectRole',
+    defaultMessage: 'Select Role',
+  },
+  selectStatus: {
+    id: 'app.containers.App.selectStatus',
+    defaultMessage: 'Select Status',
+  },
+  add: {
+    id: 'app.containers.App.add',
+    defaultMessage: 'Add',
+  },
+  edit: {
+    id: 'app.containers.App.edit',
+    defaultMessage: 'Edit',
+  },
+  delete: {
+    id: 'app.containers.App.delete',
+    defaultMessage: 'Delete',
+  },
+  changeStatus: {
+    id: 'app.containers.App.changeStatus',
+    defaultMessage: 'Change Status',
+  },
 });

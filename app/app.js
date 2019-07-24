@@ -18,6 +18,8 @@ import history from 'utils/history';
 import { Helmet } from 'react-helmet';
 
 import 'sanitize.css/sanitize.css';
+// Impoor css react-table
+import 'react-table/react-table.css';
 
 // Save,load state in localStorage
 import { loadState, saveState } from 'persistStore';
@@ -64,7 +66,7 @@ const render = (messages) => {
     <Provider store={store}>
       <LanguageProvider messages={messages}>
         <ConnectedRouter history={history}>
-          <Helmet titleTemplate="%s - WE Services" defaultTitle="WE Services" />
+          <Helmet titleTemplate="%s - WE Admin" defaultTitle="WE Admin" />
           <App />
         </ConnectedRouter>
       </LanguageProvider>

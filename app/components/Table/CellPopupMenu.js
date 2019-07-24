@@ -9,11 +9,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Dropdown, Menu, Icon } from 'antd';
+import { Dropdown, Menu } from 'antd';
 
 import { colorConfig } from 'config/style';
 
-const AntdIcon = styled(Icon)`
+const Icon = styled.div`
   border-radius: 50%;
   height: 25px;
   width: 25px;
@@ -31,7 +31,9 @@ export const MenuItem = Menu.Item;
 
 export const CellPopupMenu = ({ children }) => (
   <Dropdown overlay={<Menu>{children}</Menu>} trigger={['click']}>
-    <AntdIcon type="more" />
+    <Icon className="rt-row__drop-down-menu-indicator">
+      <i className="fa fa-ellipsis-v" />
+    </Icon>
   </Dropdown>
 );
 
