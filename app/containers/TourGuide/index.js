@@ -1,46 +1,43 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
-import { createStructuredSelector } from 'reselect';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators, compose } from 'redux';
-import { Link } from 'react-router-dom';
 
-import injectReducer from 'utils/injectReducer';
-import formatMessage from 'containers/LanguageProvider/formatMessage';
+import { formatMessage } from 'containers/LanguageProvider/IntlGlobalProvider';
 import globalMessages from 'containers/App/messages';
 import Typography from 'components/Typography';
-import Table from 'components/Table';
 import { FieldRow, FieldCol } from 'components/Layout';
 import Input from 'components/FormElements/Input';
-import Select from 'components/FormElements/Select';
 import Button from 'components/Button';
 import { routes } from 'config/routes';
-
-import getTableColumn from './getTableColumn';
+import Table from 'components/Table';
+import { createStructuredSelector } from 'reselect';
+import injectReducer from 'utils/injectReducer';
 import {
-  makeSelectUsers,
+  makeSelectTourGuide,
   makeSelectLoading,
   makeSelectPagination,
 } from './selectors';
+import { Wrapper } from './StyledComponents';
 import reducer from './reducer';
-import { Wrapper } from './StypledComponents';
-import { RELATED_PAGE_OPTIONS } from './constants';
+import getTableColumn from './getTableColumn';
 
-export class UserManagement extends React.Component {
+export class TourGuide extends React.Component {
   state = {};
 
   render() {
-    const { pagination, users, loading } = this.props;
+    const { loading, listTourGuide, pagination } = this.props;
 
     return (
       <Wrapper>
         <Helmet>
-          <title>{formatMessage(globalMessages.usersManagement)}</title>
+          <title>{formatMessage(globalMessages.tourGuide)}</title>
         </Helmet>
 
         <Typography theme="primary" uppercase noMarginTop type="heading2">
-          <div>{formatMessage(globalMessages.usersManagement)}</div>
+          <div>{formatMessage(globalMessages.tourGuide)}</div>
         </Typography>
 
         <FieldRow>
@@ -48,28 +45,10 @@ export class UserManagement extends React.Component {
             <Input
               placeholder={formatMessage(globalMessages.searchPlaceholder)}
               search
-              // onChange={this.onChangeFilter(KEYWORD)}
-              // onPressEnter={this.onPressEnter}
             />
           </FieldCol>
-          {/* <FieldCol md={6}>
-            <Select
-              options={RELATED_PAGE_OPTIONS}
-              isClearable
-              // onChange={this.onChangeFilter(ROLE)}
-              placeholder={formatMessage(globalMessages.selectRole)}
-            />
-          </FieldCol>
-          <FieldCol md={6}>
-            <Select
-              options={RELATED_PAGE_OPTIONS}
-              isClearable
-              // onChange={this.onChangeFilter(STATUS)}
-              placeholder={formatMessage(globalMessages.selectStatus)}
-            />
-          </FieldCol> */}
           <FieldCol md={18}>
-            <Link to={routes.admin.users} style={{ float: 'right' }}>
+            <Link to={routes.admin.tourGuide.list} style={{ float: 'right' }}>
               <Button theme="primary">
                 {formatMessage(globalMessages.add)}
               </Button>
@@ -79,11 +58,10 @@ export class UserManagement extends React.Component {
 
         <Table
           loading={loading}
-          data={users || []}
+          data={listTourGuide}
           columns={getTableColumn()}
           currentPage={pagination.currentPage}
           totalPages={pagination.totalPages}
-          // onChangePage={this.onReloadPage}
           margin="0px -20px"
         />
       </Wrapper>
@@ -91,8 +69,14 @@ export class UserManagement extends React.Component {
   }
 }
 
+TourGuide.propTypes = {
+  listTourGuide: PropTypes.array,
+  loading: PropTypes.bool,
+  pagination: PropTypes.object,
+};
+
 const mapStateToProps = createStructuredSelector({
-  users: makeSelectUsers(),
+  listTourGuide: makeSelectTourGuide(),
   loading: makeSelectLoading(),
   pagination: makeSelectPagination(),
 });
@@ -105,11 +89,11 @@ const withConnect = connect(
 );
 
 const withReducer = injectReducer({
-  key: 'User_Managements',
+  key: 'Tour_Guide',
   reducer,
 });
 
 export default compose(
-  withReducer,
   withConnect,
-)(UserManagement);
+  withReducer,
+)(TourGuide);

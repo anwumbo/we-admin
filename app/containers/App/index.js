@@ -19,6 +19,7 @@ import TopNavigation from 'containers/Navigation/MenuTop/Loadable';
 import SideNavigation from 'containers/Navigation/SideNav/Loadable';
 import UserManagement from 'containers/UserManagement/Loadable';
 import AuthPages from 'containers/AuthPages/Loadable';
+import TourGuide from 'containers/TourGuide/Loadable';
 import GlobalStyle from '../../global-styles';
 import { AppContentContainer } from './StyledComponents';
 
@@ -32,11 +33,8 @@ export default function App() {
         <AppContentContainer>
           <Switch>
             <Route exact path={routes.index} component={HomePage} />
-            <Route
-              exact
-              path={routes.admin.users.list}
-              component={UserManagement}
-            />
+            <Route exact path={routes.admin.users.list} component={UserManagement} />
+            <Route exact path={routes.admin.tourGuide.index} component={TourGuide} />
             <Route component={NotFoundPage} />
           </Switch>
         </AppContentContainer>

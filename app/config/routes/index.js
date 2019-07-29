@@ -17,10 +17,19 @@ export const routes = {
       add: '/admin/users/add',
       edit: '/admin/users/edit/:id',
     },
-    userLog: '/admin/logs-user',
+    tourGuide: {
+      index: '/admin/tour-guide',
+      list: '/admin/tour-guide',
+      add: '/admin/tour-guide/add',
+      edit: '/admin/tour-guide/edit/:id',
+    },
+    logs: {
+      userLogs: 'admin/log-user',
+      userLogsTracking: 'admin/logs-user-tracking',
+      systemLogs: 'admin/logs-system',
+    },
     userLogTracking: '/admin/logs-user-tracking',
     systemLog: '/admin/logs-system',
-    tourGuide: '/admin/tour-guide',
   },
 };
 

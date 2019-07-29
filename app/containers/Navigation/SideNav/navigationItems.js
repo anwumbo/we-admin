@@ -29,4 +29,10 @@ export const adminNavItems = [
     activeIcon: <img src={companyActiveIcon} alt="setting-active" />,
     label: globalMessages.usersManagement,
   },
+  {
+    path: routes.admin.tourGuide.list,
+    icon: <img src={settingIcon} alt="setting" />,
+    activeIcon: <img src={settingActiveIcon} alt="setting-active" />,
+    label: globalMessages.tourGuide,
+  },
 ];

@@ -121,4 +121,28 @@ export default defineMessages({
     id: 'app.containers.App.changeStatus',
     defaultMessage: 'Change Status',
   },
+  id: {
+    id: 'app.containers.App.id',
+    defaultMessage: 'Id',
+  },
+  title: {
+    id: 'app.containers.App.title',
+    defaultMessage: 'Title',
+  },
+  forResident: {
+    id: 'app.containers.App.forResident',
+    defaultMessage: 'For Resident	',
+  },
+  status: {
+    id: 'app.containers.App.status',
+    defaultMessage: 'Status',
+  },
+  active: {
+    id: 'app.containers.App.active',
+    defaultMessage: 'Active',
+  },
+  inactive: {
+    id: 'app.containers.App.inactive',
+    defaultMessage: 'Inactive',
+  },
 });
