@@ -105,7 +105,7 @@
     "redux-logger": "^3.0.6",
     "redux-saga": "1.0.2",
     "reselect": "4.0.0",
-    "sanitize-html": "^1.20.1",
+    "sanitize-html": "^2.3.2",
     "sanitize.css": "8.0.0",
     "styled-components": "4.2.0"
   },
